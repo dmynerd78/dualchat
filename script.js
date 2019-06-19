@@ -1,7 +1,7 @@
 function iframeLoaded(frameID) {
+    // Resize iframe to fit half the screen
     var iFrameID = document.getElementById(frameID);
     if (iFrameID) {
-        // here you can make the height, I delete it first, then I make it again
         iFrameID.height = "";
         iFrameID.height = window.innerHeight + "px";
 
@@ -16,16 +16,20 @@ function resizeChats() {
 }
 
 function loadChannels() {
+    // Get input values
     var twitchName = document.getElementById("twitchName").value.trim();
     var mixerName = document.getElementById("mixerName").value.trim();
 
+    // Validate input values
     if (twitchName == "" || mixerName == "") {
         alert("Invalid username");
         return;
     }
 
+    // Save input values
     localStorage.chats = JSON.stringify({"twitch": twitchName, "mixer": mixerName});
 
+    // Create iframes
     var twitchChat = document.createElement("iframe");
     twitchChat.id = "twitchChat";
     twitchChat.scrolling = "yes";
@@ -38,16 +42,19 @@ function loadChannels() {
     mixerChat.frameBorder = "0";
     mixerChat.src = "https://mixer.com/embed/chat/" + mixerName;
 
+    // Remove input node and append chat iframes
     var initNode = document.getElementById("init");
     initNode.parentElement.removeChild(initNode);
     document.body.appendChild(twitchChat);
     document.body.appendChild(mixerChat);
 
+    // Resize to fit window screen
     window.onresize = resizeChats;
     resizeChats();
 }
 
 function init() {
+    // Check for saved usernames
     if(localStorage.chats) {
         var chats = JSON.parse(localStorage.chats);
         document.getElementById("twitchName").value = chats.twitch;
