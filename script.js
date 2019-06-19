@@ -29,11 +29,13 @@ function loadChannels() {
     var twitchChat = document.createElement("iframe");
     twitchChat.id = "twitchChat";
     twitchChat.scrolling = "yes";
+    twitchChat.frameBorder = "0";
     twitchChat.src = "https://www.twitch.tv/embed/"+ twitchName + "/chat";
 
     var mixerChat = document.createElement("iframe");
     mixerChat.id = "mixerChat";
     mixerChat.scrolling = "yes";
+    mixerChat.frameBorder = "0";
     mixerChat.src = "https://mixer.com/embed/chat/" + mixerName;
 
     var initNode = document.getElementById("init");
